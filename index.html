@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server PvP Tier List</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --tier-bg: #1a1a1a;
+            --text-color: #ffffff;
+            --s-tier: #ff7f7f;
+            --a-tier: #ffbf7f;
+            --b-tier: #ffdf7f;
+            --c-tier: #ffff7f;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tier-container {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .tier-row {
+            display: flex;
+            background-color: var(--tier-bg);
+            border-radius: 4px;
+            overflow: hidden;
+            min-height: 90px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .tier-label {
+            width: 100px;
+            min-width: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            color: #000;
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.2);
+        }
+
+        .tier-players {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 10px;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .player-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #262626;
+            padding: 8px;
+            border-radius: 6px;
+            width: 80px;
+            transition: transform 0.2s;
+        }
+
+        .player-card:hover {
+            transform: scale(1.05);
+            background: #333333;
+        }
+
+        .player-card img {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 6px;
+            image-rendering: pixelated;
+        }
+
+        .player-name {
+            font-size: 12px;
+            text-align: center;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Tier Colours */
+        .s-label { background-color: var(--s-tier); }
+        .a-label { background-color: var(--a-tier); }
+        .b-label { background-color: var(--b-tier); }
+        .c-label { background-color: var(--c-tier); }
+    </style>
+</head>
+<body>
+
+    <h1>🏆 Server PvP Tier List 🏆</h1>
+
+    <div class="tier-container">
+        <!-- S Tier -->
+        <div class="tier-row">
+            <div class="tier-label s-label">S</div>
+            <div class="tier-players" id="s-tier"></div>
+        </div>
+
+        <!-- A Tier -->
+        <div class="tier-row">
+            <div class="tier-label a-label">A</div>
+            <div class="tier-players" id="a-tier"></div>
+        </div>
+
+        <!-- B Tier -->
+        <div class="tier-row">
+            <div class="tier-label b-label">B</div>
+            <div class="tier-players" id="b-tier"></div>
+        </div>
+
+        <!-- C Tier -->
+        <div class="tier-row">
+            <div class="tier-label c-label">C</div>
+            <div class="tier-players" id="c-tier"></div>
+        </div>
+    </div>
+
+    <script>
+        // Replace these placeholder usernames with your actual server players
+        const tierData = {
+            "s-tier": ["PlayerOne", "PlayerTwo"],
+            "a-tier": ["PlayerThree", "PlayerFour"],
+            "b-tier": ["PlayerFive"],
+            "c-tier": ["PlayerSix", "PlayerSeven"]
+        };
+
+        function loadTierList() {
+            Object.keys(tierData).forEach(tier => {
+                const container = document.getElementById(tier);
+                tierData[tier].forEach(username => {
+                    // Create Player Box
+                    const card = document.createElement('div');
+                    card.className = 'player-card';
+
+                    // Fetch 3D Head Render using Crafatar API
+                    const img = document.createElement('img');
+                    img.src = `https://crafatar.com{username}?size=64&overlay`;
+                    img.alt = username;
+
+                    // Add Player Username Text
+                    const nameSpan = document.createElement('span');
+                    nameSpan.className = 'player-name';
+                    nameSpan.textContent = username;
+
+                    card.appendChild(img);
+                    card.appendChild(nameSpan);
+                    container.appendChild(card);
+                });
+            });
+        }
+
+        // Run the builder script on page load
+        window.onload = loadTierList;
+    </script>
+</body>
+</html>
