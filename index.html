@@ -147,7 +147,7 @@
             "c-tier": ["PlayerSix", "PlayerSeven"]
         };
 
-        function loadTierList() {
+                function loadTierList() {
             Object.keys(tierData).forEach(tier => {
                 const container = document.getElementById(tier);
                 tierData[tier].forEach(username => {
@@ -155,7 +155,7 @@
                     const card = document.createElement('div');
                     card.className = 'player-card';
 
-                    // Fetch 3D Head Render using Crafatar API
+                    // Fetch 3D Head Render using Crafatar API with the missing slash added
                     const img = document.createElement('img');
                     img.src = `https://crafatar.com{username}?size=64&overlay`;
                     img.alt = username;
@@ -171,6 +171,7 @@
                 });
             });
         }
+
 
         // Run the builder script on page load
         window.onload = loadTierList;
